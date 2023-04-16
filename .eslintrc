@@ -1,0 +1,61 @@
+{
+	"extends": [
+		"airbnb-base",
+		"plugin:@typescript-eslint/recommended",
+		"plugin:prettier/recommended"
+	],
+	"parser": "@typescript-eslint/parser",
+	"plugins": ["@typescript-eslint"],
+	"root": true,
+	"env": {
+	  "node": true
+	},
+	"parserOptions": {
+		"ecmaVersion": 2020
+	},
+	"settings": {
+		"import/resolver": {
+		  "typescript": {}
+		},
+		"import/parsers": {
+			"@typescript-eslint/parser": [".ts"]
+		},
+		"react": {
+			"version": "detect"
+		}
+	},
+	"rules": {
+		"indent": "off",
+		"lines-between-class-members": "off",
+		"@typescript-eslint/indent": ["error", "tab"],
+		"no-tabs": ["error", { "allowIndentationTabs": true }],
+		"import/extensions": [
+			"error",
+			"ignorePackages",
+			{
+				"js": "always",
+				"ts": "never",
+				"tsx": "never"
+			}
+		],
+		"no-underscore-dangle": "off",
+		"no-param-reassign": "off",
+		"import/prefer-default-export": "off",
+		"import/no-extraneous-dependencies": "off",
+		"consistent-return": "off",
+		"class-methods-use-this": "off",
+		"import/no-named-as-default": "off",
+		"prettier/prettier": [
+			"error",
+			{
+				"singleQuote": true,
+				"trailingComma": "all",
+				"useTabs": true,
+				"semi": true,
+				"bracketSpacing": true,
+				"printWidth": 100,
+				"endOfLine": "auto"
+			}
+		]
+	}
+}
