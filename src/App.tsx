@@ -1,14 +1,23 @@
-import { memo } from 'react';
-import 'src/css/app.css';
+import Layout from 'src/components/layout/Layout';
+import 'antd/dist/reset.css';
+import 'src/css/globals.css';
 import Router from 'src/router';
-import apiRequest from 'src/utils/request';
+import { ConfigProvider } from 'antd';
 
 function App() {
 	return (
-		<div className="App">
-			<Router />
-		</div>
+		<ConfigProvider
+		/* theme={{
+				token: {
+					fontFamily: 'Star Jedi, sans serif',
+				},
+			}} */
+		>
+			<Layout>
+				<Router />
+			</Layout>
+		</ConfigProvider>
 	);
 }
 
-export default memo(App);
+export default App;

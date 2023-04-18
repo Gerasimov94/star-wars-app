@@ -1,6 +1,13 @@
-import { ApiString, Gender, ICharacter } from 'src/common/types';
+// eslint-disable-next-line no-shadow
+export enum Gender {
+	Female = 'female',
+	Male = 'male',
+	NA = 'n/a',
+}
 
-export interface Character {
+export type ApiString = string; // refers to swapi entities
+
+export interface ICharacter {
 	name: string;
 	height: string;
 	mass: string;
@@ -17,11 +24,4 @@ export interface Character {
 	created: Date;
 	edited: Date;
 	url: string;
-}
-
-export interface CharactersResponse {
-	count: number;
-	next: string | null;
-	previous: string | null;
-	results: ICharacter[];
 }

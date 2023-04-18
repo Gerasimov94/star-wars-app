@@ -1,0 +1,16 @@
+.ant-spin-nested-loading {
+	overflow: hidden;
+}
+
+.ant-spin-nested-loading > div > .ant-spin {
+	max-height: inherit;
+	position: fixed;
+	height: 100vh;
+}
+
+.ant-list-empty-text {
+	height: calc(100vh - 256px);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}

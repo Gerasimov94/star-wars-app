@@ -1,7 +1,10 @@
 export default function ErrorPage() {
 	return (
 		<>
-			<div>404</div>
+			<h2>404</h2>
+			<div>
+				<img src="src/assets/images/trooper.png" width={128} height={128} alt="trooper png" />
+			</div>
 			<div>THIS IS NOT THE PAGE YOU ARE LOOKING FOR. MOVE ALONG, MOVE ALONG.</div>
 		</>
 	);

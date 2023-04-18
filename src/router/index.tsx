@@ -1,23 +1,13 @@
-import { Route } from 'wouter';
+import { Route, Switch } from 'wouter';
 import ErrorPage from 'src/modules/404';
-import React from 'react';
-import Loader from 'src/components/loader';
-
-const CharactersRoot = React.lazy(() => import('src/modules/characters'));
+import CharactersRoot from 'src/modules/characters';
 
 export default function Router() {
 	return (
-		<>
-			<Route
-				component={() => (
-					<React.Suspense fallback={<Loader />}>
-						<CharactersRoot />
-					</React.Suspense>
-				)}
-				path="/"
-			/>
+		<Switch>
+			<Route component={CharactersRoot} path="/" />
 			<Route component={CharactersRoot} path="/characters/:id" />
-			<Route component={ErrorPage} />
-		</>
+			<Route component={ErrorPage} path="/:rest*" />
+		</Switch>
 	);
 }
