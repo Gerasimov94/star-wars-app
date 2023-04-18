@@ -1,22 +1,22 @@
 import { batch } from 'react-redux';
 import { setCharactersData, setIsFetching } from 'src/modules/characters/slice';
 import { AppThunk } from 'src/store';
-import apiRequest from 'src/utils/request';
+import apiRequest, { makeURLString } from 'src/utils/request';
 import { showErrorNotification } from 'src/helpers';
 
 export const getCharactersRequest = (
-	data: { page?: number; count?: number; search?: string } = {
+	controller?: AbortController,
+	data: { page?: number; search?: string } = {
 		page: 1,
-		count: 12,
 		search: '',
 	},
 ): AppThunk => {
-	console.log(data);
 	return async (dispatch) => {
 		try {
 			dispatch(setIsFetching(true));
 
-			const response = await apiRequest(`/people?page=${data.page}&search=${data.search}`);
+			const response = await apiRequest(makeURLString('/people', data), { signal: controller?.signal });
+
 			const characters = await response.json();
 
 			batch(() => {
@@ -24,7 +24,9 @@ export const getCharactersRequest = (
 				dispatch(setCharactersData(characters));
 			});
 		} catch (err) {
-			showErrorNotification();
+			if (!controller?.signal.aborted) {
+				showErrorNotification();
+			}
 
 			dispatch(setIsFetching(false));
 		}

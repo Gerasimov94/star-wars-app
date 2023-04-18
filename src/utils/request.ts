@@ -1,11 +1,25 @@
 const { VITE_API_URL } = import.meta.env;
 
-async function apiRequest(
-	input: RequestInfo,
-	init?: Omit<RequestInit, 'body'> & { body?: object | BodyInit | null },
-): Promise<Response>;
+export function makeURLString<T extends Record<string, string | number>>(
+	tail: string,
+	data: {
+		[K in keyof T]: T[K];
+	},
+) {
+	const url = new URL(`${VITE_API_URL}${tail}`);
 
-async function apiRequest(input: RequestInfo, init?: RequestInit): Promise<Response>;
+	Object.keys(data).forEach((key) => {
+		if (data[key]) {
+			url.searchParams.set(key, `${data[key]}`);
+		}
+	});
+
+	return url;
+}
+
+async function apiRequest(input: RequestInfo | URL, init?: Omit<RequestInit, 'body'> & { body?: object | BodyInit | null }): Promise<Response>;
+
+async function apiRequest(input: RequestInfo | URL, init?: RequestInit): Promise<Response>;
 
 async function apiRequest(input: any, init: any = {}) {
 	let requestBody = init.body;

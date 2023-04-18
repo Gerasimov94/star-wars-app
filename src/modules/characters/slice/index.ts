@@ -26,6 +26,10 @@ export const charactersSlice = createSlice({
 			};
 			return state;
 		},
+		removeCharacter: (state, action: PayloadAction<CharactersResponse['results'][number]['url']>) => {
+			state.results = state.results.filter((character) => character.url !== action.payload);
+			return state;
+		},
 		updateCharacters: (state, action: PayloadAction<CharactersResponse['results']>) => {
 			state = {
 				...state,
@@ -37,7 +41,6 @@ export const charactersSlice = createSlice({
 	},
 });
 
-// Action creators are generated for each case reducer function
-export const { setCharactersData, updateCharacters, setIsFetching } = charactersSlice.actions;
+export const { setCharactersData, updateCharacters, setIsFetching, removeCharacter } = charactersSlice.actions;
 
 export default charactersSlice.reducer;

@@ -21,7 +21,7 @@ export interface ICharacter {
 	species: ApiString[];
 	vehicles: ApiString[];
 	starships: ApiString[];
-	created: Date;
-	edited: Date;
+	created: string;
+	edited: string;
 	url: string;
 }

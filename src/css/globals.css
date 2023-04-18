@@ -3,10 +3,12 @@
 }
 
 .ant-spin-nested-loading > div > .ant-spin {
+	bottom: 64px;
 	max-height: inherit;
 	position: fixed;
-	height: 100vh;
+	height: calc(100vh - 134px);
 	background-color: white;
+	top: 64px;
 }
 
 .ant-list-empty-text {
@@ -14,4 +16,15 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
+}
+
+.breadcrumb {
+	cursor: pointer;
+}
+
+.ant-image-img {
+	height: 75vh !important;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }

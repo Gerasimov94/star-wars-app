@@ -1,34 +1,29 @@
 import { List, Spin } from 'antd';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useRef } from 'react';
 import CharacterCard from 'src/components/card/CharacterCard';
 import Loader from 'src/components/loader';
 import { useAppDispatch, useAppSelector } from 'src/hooks';
 import { getCharactersRequest } from 'src/modules/characters/thunks';
 
 export default function CharactersRoot() {
-	const [isLoaded, setIsLoaded] = useState(false);
+	const abortControllerRef = useRef(new AbortController());
 	const dispatch = useAppDispatch();
 	const characters = useAppSelector((state) => state.charactersReducer.results);
 	const total = useAppSelector((state) => state.charactersReducer.count);
 	const isFetching = useAppSelector((state) => state.charactersReducer.isFetching);
 
-	useEffect(() => {
-		(async () => {
-			await dispatch(getCharactersRequest());
-
-			setIsLoaded(true);
-		})();
-	}, []);
-
-	const onPaginationChange = useCallback((page: number) => {
-		dispatch(getCharactersRequest({ page, search: '' }));
-	}, []);
+	const onPaginationChange = useCallback(
+		(page: number) => {
+			dispatch(getCharactersRequest(abortControllerRef.current, { page, search: '' }));
+		},
+		[abortControllerRef.current],
+	);
 
 	return (
 		<List
 			loading={{
 				indicator: <Spin indicator={<Loader />} />,
-				spinning: isFetching || !isLoaded,
+				spinning: isFetching,
 				style: { overflow: 'hidden' },
 			}}
 			grid={{
@@ -46,6 +41,9 @@ export default function CharactersRoot() {
 				onChange: onPaginationChange,
 				position: 'bottom',
 				align: 'center',
+				hideOnSinglePage: true,
+				defaultPageSize: 10,
+				showSizeChanger: false,
 			}}
 			style={{
 				display: 'flex',
