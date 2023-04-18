@@ -1,18 +1,23 @@
-import { Col, List, Spin } from 'antd';
-import { useCallback, useEffect } from 'react';
+import { List, Spin } from 'antd';
+import { useCallback, useEffect, useState } from 'react';
 import CharacterCard from 'src/components/card/CharacterCard';
 import Loader from 'src/components/loader';
 import { useAppDispatch, useAppSelector } from 'src/hooks';
 import { getCharactersRequest } from 'src/modules/characters/thunks';
 
 export default function CharactersRoot() {
+	const [isLoaded, setIsLoaded] = useState(false);
 	const dispatch = useAppDispatch();
 	const characters = useAppSelector((state) => state.charactersReducer.results);
 	const total = useAppSelector((state) => state.charactersReducer.count);
 	const isFetching = useAppSelector((state) => state.charactersReducer.isFetching);
 
 	useEffect(() => {
-		dispatch(getCharactersRequest());
+		(async () => {
+			await dispatch(getCharactersRequest());
+
+			setIsLoaded(true);
+		})();
 	}, []);
 
 	const onPaginationChange = useCallback((page: number) => {
@@ -23,7 +28,7 @@ export default function CharactersRoot() {
 		<List
 			loading={{
 				indicator: <Spin indicator={<Loader />} />,
-				spinning: isFetching,
+				spinning: isFetching || !isLoaded,
 				style: { overflow: 'hidden' },
 			}}
 			grid={{

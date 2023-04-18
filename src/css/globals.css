@@ -6,6 +6,7 @@
 	max-height: inherit;
 	position: fixed;
 	height: 100vh;
+	background-color: white;
 }
 
 .ant-list-empty-text {
