@@ -29,7 +29,7 @@ export default function Layout({ children }: IProps) {
 							height: 48,
 							width: 48,
 						}}
-						icon={<img src={isLightMode ? 'src/assets/images/master_yoda.webp' : 'src/assets/images/vader.png'} width={36} height={36} />}
+						icon={<img src={isLightMode ? '/master_yoda.webp' : '/vader.png'} width={36} height={36} />}
 						onClick={() => {
 							setThemeMode(isLightMode ? ThemeModes.DARK : ThemeModes.LIGHT);
 						}}
