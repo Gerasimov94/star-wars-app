@@ -41,11 +41,11 @@ export default function index() {
 					<Breadcrumb.Item className="breadcrumb" onClick={() => navigate('/')}>
 						Characters
 					</Breadcrumb.Item>
-					<Breadcrumb.Item>{!character.name ? <Skeleton /> : character.name}</Breadcrumb.Item>
+					<Breadcrumb.Item>{!character.name ? <Skeleton /> : character.name.toLowerCase()}</Breadcrumb.Item>
 				</Breadcrumb>
 			</Space>
 			<Row gutter={[16, 16]} wrap>
-				<Col md={12} flex={1} xs={24} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+				<Col md={12} flex={1} xs={24} style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'center' }}>
 					<>
 						<Image preview={{ visible: false }} src="/jedi_1.jpeg" onClick={() => setVisible(true)} />
 						<div style={{ display: 'none' }}>
@@ -58,7 +58,7 @@ export default function index() {
 				</Col>
 				<Col md={12} flex={1} xs={24}>
 					<Space direction="vertical" style={{ width: '100%' }}>
-						<Descriptions title="About character" layout="vertical" bordered column={1}>
+						<Descriptions title={<span style={{ fontFamily: 'Star Jedi' }}>About character</span>} layout="vertical" bordered column={1}>
 							<Descriptions.Item className="card-grid-item__description">
 								<b style={{ whiteSpace: 'nowrap', fontFamily: 'Star Jedi' }}>Birth year:</b> {character.birth_year}
 							</Descriptions.Item>
@@ -69,7 +69,7 @@ export default function index() {
 								<b style={{ whiteSpace: 'nowrap', fontFamily: 'Star Jedi' }}>Mass:</b> {character.mass}
 							</Descriptions.Item>
 							<Descriptions.Item className="card-grid-item__description">
-								<b>Eye color:</b> {character.eye_color}
+								<b style={{ whiteSpace: 'nowrap', fontFamily: 'Star Jedi' }}>Eye color:</b> {character.eye_color}
 							</Descriptions.Item>
 						</Descriptions>
 						<Card title="Companions">

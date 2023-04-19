@@ -6,7 +6,7 @@
 	bottom: 64px;
 	max-height: inherit;
 	position: fixed;
-	height: calc(100vh - 134px);
+	height: calc(100vh - 128px);
 	background-color: white;
 	top: 64px;
 }
