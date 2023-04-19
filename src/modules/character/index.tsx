@@ -1,25 +1,22 @@
-import { DefaultParams, useLocation, useRoute } from 'wouter';
+import { useLocation, useRoute } from 'wouter';
 import { Avatar, Breadcrumb, Card, Col, Descriptions, Image, Row, Skeleton, Space, Spin } from 'antd';
 import { useEffect, useMemo, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'src/hooks';
-import { getCharacterRequest } from 'src/modules/character/thunks';
 import { getCharactersRequest } from 'src/modules/characters/thunks';
 import Loader from 'src/components/loader';
 import { getIDFromURL } from 'src/helpers';
-
-interface IProps {
-	params: {
-		id: number;
-	};
-}
+import { getCharacters, getIsCharactersFetching } from 'src/modules/characters/selectors';
+import { getCharacter, getIsCharacterFetching } from 'src/modules/character/selectors';
+import 'src/modules/character/styles/index.css';
+import { getCharacterRequest } from 'src/modules/character/thunks';
 
 export default function index() {
 	const [_loc, navigate] = useLocation();
 	const [_match, params] = useRoute('/character/:id');
-	const character = useAppSelector((state) => state.characterReducer.character);
-	const characters = useAppSelector((state) => state.charactersReducer.results);
-	const isFetching = useAppSelector((state) => state.characterReducer.isFetching);
-	const isCharactersFetching = useAppSelector((state) => state.charactersReducer.isFetching);
+	const character = useAppSelector(getCharacter);
+	const characters = useAppSelector(getCharacters);
+	const isFetching = useAppSelector(getIsCharacterFetching);
+	const isCharactersFetching = useAppSelector(getIsCharactersFetching);
 	const [visible, setVisible] = useState(false);
 	const dispatch = useAppDispatch();
 
@@ -35,17 +32,22 @@ export default function index() {
 	const companions = useMemo(() => [...characters].sort(() => 0.5 - Math.random()).slice(0, 4), [characters]);
 
 	return (
-		<Spin spinning={isFetching || isCharactersFetching} indicator={<Loader />}>
-			<Space>
-				<Breadcrumb separator="/" style={{ margin: '16px 0', fontFamily: 'Star Jedi' }}>
-					<Breadcrumb.Item className="breadcrumb" onClick={() => navigate('/')}>
-						Characters
-					</Breadcrumb.Item>
-					<Breadcrumb.Item>{!character.name ? <Skeleton /> : character.name.toLowerCase()}</Breadcrumb.Item>
-				</Breadcrumb>
-			</Space>
-			<Row gutter={[16, 16]} wrap>
-				<Col md={12} flex={1} xs={24} style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'center' }}>
+		<Spin spinning={isFetching || isCharactersFetching} indicator={<Loader />} wrapperClassName="character_spinner">
+			<Breadcrumb
+				style={{ margin: '16px 0', fontFamily: 'Star Jedi', height: 36 }}
+				items={[
+					{
+						title: 'Characters',
+						onClick: () => navigate('/'),
+						className: 'breadcrumb',
+					},
+					{
+						title: !character.name ? <Skeleton /> : character.name.toLowerCase(),
+					},
+				]}
+			/>
+			<Row gutter={[16, 16]} wrap className="character_row">
+				<Col md={12} flex={1} xs={24} className="character_image_container ">
 					<>
 						<Image preview={{ visible: false }} src="/jedi_1.jpeg" onClick={() => setVisible(true)} />
 						<div style={{ display: 'none' }}>
@@ -58,21 +60,21 @@ export default function index() {
 				</Col>
 				<Col md={12} flex={1} xs={24}>
 					<Space direction="vertical" style={{ width: '100%' }}>
-						<Descriptions title={<span style={{ fontFamily: 'Star Jedi' }}>About character</span>} layout="vertical" bordered column={1}>
-							<Descriptions.Item className="card-grid-item__description">
-								<b style={{ whiteSpace: 'nowrap', fontFamily: 'Star Jedi' }}>Birth year:</b> {character.birth_year}
+						<Descriptions title={<span className="text-star-jedi">About character</span>} layout="vertical" bordered column={1}>
+							<Descriptions.Item>
+								<b className="text-star-jedi character_description">Birth year:</b> {character.birth_year}
 							</Descriptions.Item>
-							<Descriptions.Item className="card-grid-item__description">
-								<b style={{ whiteSpace: 'nowrap', fontFamily: 'Star Jedi' }}>Height:</b> {character.height} cm
+							<Descriptions.Item>
+								<b className="text-star-jedi character_description">Height:</b> {character.height} cm
 							</Descriptions.Item>
-							<Descriptions.Item className="card-grid-item__description">
-								<b style={{ whiteSpace: 'nowrap', fontFamily: 'Star Jedi' }}>Mass:</b> {character.mass}
+							<Descriptions.Item>
+								<b className="text-star-jedi character_description">Mass:</b> {character.mass}
 							</Descriptions.Item>
-							<Descriptions.Item className="card-grid-item__description">
-								<b style={{ whiteSpace: 'nowrap', fontFamily: 'Star Jedi' }}>Eye color:</b> {character.eye_color}
+							<Descriptions.Item>
+								<b className="text-star-jedi character_description">Eye color:</b> {character.eye_color}
 							</Descriptions.Item>
 						</Descriptions>
-						<Card title="Companions">
+						<Card title={<div>Companions</div>}>
 							{companions.map(({ name, url, gender }) => (
 								<Card.Grid className="card-grid-item" key={url} onClick={() => navigate(`/character/${getIDFromURL(url)}`)}>
 									<Card.Meta

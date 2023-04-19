@@ -3,12 +3,11 @@
 }
 
 .ant-spin-nested-loading > div > .ant-spin {
-	bottom: 64px;
-	max-height: inherit;
+	overflow: hidden;
 	position: fixed;
-	height: calc(100vh - 128px);
-	background-color: white;
-	top: 64px;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	left: 50%;
 }
 
 .ant-list-empty-text {
@@ -27,4 +26,8 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+}
+
+.text-star-jedi {
+	font-family: 'Star Jedi', sans-serif;
 }

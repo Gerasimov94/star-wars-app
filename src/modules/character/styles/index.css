@@ -1,0 +1,17 @@
+.character_spinner {
+	height: calc(100vh - 168px);
+}
+
+.character_description {
+	white-space: nowrap;
+}
+
+.character_image_container {
+	display: flex;
+	align-items: flex-start;
+	justify-content: center;
+}
+
+.character_row {
+	height: calc(100vh - 216px);
+}

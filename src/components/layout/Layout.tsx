@@ -1,11 +1,7 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React from 'react';
 import { Layout as AntLayout, Button, Input, Space, Tooltip, theme } from 'antd';
 import { ThemeModes, useThemeContext } from 'src/common/context/ThemeContext';
-import { navigate, useLocation } from 'wouter';
-import { UserOutlined, InfoCircleOutlined } from '@ant-design/icons';
-import { getCharactersRequest } from 'src/modules/characters/thunks';
-import { useAppDispatch } from 'src/hooks';
-import { debounce } from 'src/helpers';
+import { useLocation } from 'wouter';
 
 interface IProps {
 	children: React.ReactNode;
@@ -19,31 +15,8 @@ export default function Layout({ children }: IProps) {
 	} = theme.useToken();
 
 	const { mode, setThemeMode } = useThemeContext();
-	const [searchText, setSearchText] = useState('');
-	const dispatch = useAppDispatch();
-	const [location, navigate] = useLocation();
-	const isMainRoute = location === '/';
-
-	useEffect(() => {
-		if (isMainRoute) {
-			const abortController = new AbortController();
-			dispatch(getCharactersRequest(abortController, { search: searchText }));
-
-			return () => {
-				abortController.abort();
-			};
-		}
-	}, [searchText, isMainRoute]);
-
+	const [_location, navigate] = useLocation();
 	const isLightMode = mode === ThemeModes.LIGHT;
-
-	const getCharactersByName: React.ChangeEventHandler<HTMLInputElement> = useMemo(
-		() =>
-			debounce((event) => {
-				setSearchText(event.target.value);
-			}, 500),
-		[],
-	);
 
 	return (
 		<AntLayout style={{ height: '100vh' }}>
@@ -80,18 +53,6 @@ export default function Layout({ children }: IProps) {
 								}}
 							/>
 						</Tooltip>
-						{isMainRoute && (
-							<Input
-								placeholder="Enter your character"
-								prefix={<UserOutlined className="site-form-item-icon" />}
-								suffix={
-									<Tooltip title="Use Force to find a person into galaxy">
-										<InfoCircleOutlined style={{ color: 'rgba(0,0,0,.45)' }} />
-									</Tooltip>
-								}
-								onChange={getCharactersByName}
-							/>
-						)}
 					</Space>
 				</Space>
 			</Header>

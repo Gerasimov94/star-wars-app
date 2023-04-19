@@ -23,3 +23,5 @@ export const debounce = (callback: (params: any) => any, wait: number) => {
 };
 
 export const getIDFromURL = (url: string) => Number(new URL(url).pathname.replace(/\D/g, ''));
+
+export const capitalize = (word: string) => word.charAt(0).toUpperCase() + word.slice(1);

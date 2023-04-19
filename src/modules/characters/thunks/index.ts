@@ -3,6 +3,7 @@ import { setCharactersData, setIsFetching } from 'src/modules/characters/slice';
 import { AppThunk } from 'src/store';
 import apiRequest, { makeURLString } from 'src/utils/request';
 import { showErrorNotification } from 'src/helpers';
+import { ICharacter } from 'src/common/types';
 
 export const getCharactersRequest = (
 	controller?: AbortController,
@@ -17,11 +18,11 @@ export const getCharactersRequest = (
 
 			const response = await apiRequest(makeURLString('/people', data), { signal: controller?.signal });
 
-			const characters = await response.json();
+			const result: { results: ICharacter[]; total: number } = await response.json();
 
 			batch(() => {
 				dispatch(setIsFetching(false));
-				dispatch(setCharactersData(characters));
+				dispatch(setCharactersData({ characters: result.results, total: result.total }));
 			});
 		} catch (err) {
 			if (!controller?.signal.aborted) {
