@@ -15,6 +15,8 @@ interface IProps {
 
 const { Meta } = Card;
 
+const breakpoints = { xxl: 2, xl: 2, lg: 1, md: 1, sm: 1, xs: 1 };
+
 export default function CharacterCard({ isFetching, character }: IProps) {
 	const dispatch = useAppDispatch();
 	const [_loc, navigate] = useLocation();
@@ -30,10 +32,10 @@ export default function CharacterCard({ isFetching, character }: IProps) {
 		<>
 			<CharacterEditModal isOpen={isOpen} setIsOpen={setIsOpen} character={character} />
 			<Card
-				style={{ marginTop: 16 }}
+				className="margin-top-16"
 				actions={[
 					<EnterOutlined key="enter" onClick={() => navigate(`/character/${charID}`)} />,
-					<EditOutlined key="edit" onClick={() => setIsOpen(true)} />,
+					<EditOutlined key="edit" data-testid="edit-icon" onClick={() => setIsOpen(true)} />,
 					<DeleteOutlined key="delete" onClick={() => dispatch(removeCharacter(character.url))} />,
 				]}
 			>
@@ -42,21 +44,24 @@ export default function CharacterCard({ isFetching, character }: IProps) {
 						avatar={<Avatar src={avatar} />}
 						title={character.name.toLowerCase()}
 						description={`Gender: ${character.gender.toLowerCase()}`}
-						style={{ fontFamily: 'Star Jedi, sans-serif' }}
+						className="text--star-jedi"
 					/>
+				</Skeleton>
+
+				<Skeleton loading={isFetching} active style={{ height: 260 }}>
 					<Divider />
-					<Descriptions title="Params" bordered column={{ xxl: 2, xl: 2, lg: 1, md: 1, sm: 1, xs: 1 }}>
+					<Descriptions title="Params" bordered column={breakpoints}>
 						<Descriptions.Item>
-							<b style={{ whiteSpace: 'nowrap' }}>Birth year:</b> {character.birth_year}
+							<b className="text--no-wrap">Birth year:</b> {character.birth_year}
 						</Descriptions.Item>
 						<Descriptions.Item>
-							<b style={{ whiteSpace: 'nowrap' }}>Height:</b> {character.height} cm
+							<b className="text--no-wrap">Height:</b> {character.height} cm
 						</Descriptions.Item>
 						<Descriptions.Item>
-							<b style={{ whiteSpace: 'nowrap' }}>Mass:</b> {character.mass}
+							<b className="text--no-wrap">Mass:</b> {character.mass}
 						</Descriptions.Item>
 						<Descriptions.Item>
-							<b style={{ whiteSpace: 'nowrap' }}>Eye color:</b> {character.eye_color}
+							<b className="text--no-wrap">Eye color:</b> {character.eye_color}
 						</Descriptions.Item>
 					</Descriptions>
 				</Skeleton>

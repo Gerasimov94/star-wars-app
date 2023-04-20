@@ -4,13 +4,13 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { CustomTagProps } from 'rc-select/lib/BaseSelect';
 import CharacterCard from 'src/components/card/CharacterCard';
 import Loader from 'src/components/loader';
-import 'src/modules/characters/styles/index.css';
 import { debounce } from 'src/helpers';
 import { useAppDispatch, useAppSelector } from 'src/hooks';
 import { getFilteredCharacters, getGendersFilter, getIsCharactersFetching, getTotalNumberOfCharacters } from 'src/modules/characters/selectors';
 import { getCharactersRequest } from 'src/modules/characters/thunks';
 import { Gender } from 'src/common/types';
 import { updateFilters } from 'src/modules/characters/slice';
+import 'src/modules/characters/styles/index.css';
 
 const filterOptions = Object.values(Gender).map((value) => ({ value }));
 
@@ -21,7 +21,7 @@ const tagRender = (props: CustomTagProps) => {
 		event.stopPropagation();
 	};
 	return (
-		<Tag onMouseDown={onPreventMouseDown} closable={closable} onClose={onClose} color={'blue'} style={{ marginRight: 4 }}>
+		<Tag onMouseDown={onPreventMouseDown} closable={closable} onClose={onClose} color="blue" style={{ marginRight: 4 }}>
 			{label}
 		</Tag>
 	);
@@ -65,24 +65,24 @@ export default function CharactersRoot() {
 	};
 
 	return (
-		<Space direction="vertical" style={{ width: '100%' }}>
+		<Space direction="vertical" className="width-100-percents">
 			<Space className="characters_filters" wrap>
 				<Space wrap>
-					<label className="text-star-jedi">Pick characters gender: </label>
+					<label className="text--star-jedi">Pick characters gender: </label>
 					<Select
 						mode="multiple"
 						showArrow
 						tagRender={tagRender}
 						value={genderFilter}
 						onChange={onSelectChange}
-						style={{ width: '100%' }}
+						className="width-100-percents"
 						options={filterOptions}
 					/>
 				</Space>
 
 				<Input
 					placeholder="Enter your character"
-					className="text-star-jedi"
+					className="text--star-jedi"
 					prefix={<UserOutlined className="site-form-item-icon" />}
 					suffix={
 						<Tooltip title="Use Force to find a person into galaxy">
@@ -124,10 +124,12 @@ export default function CharactersRoot() {
 					padding: '16px 0px',
 				}}
 				dataSource={characters}
-				renderItem={(character) => (
-					<List.Item key={character.url}>
-						<CharacterCard isFetching={isFetching} character={character} />
-					</List.Item>
+				renderItem={(character, idx) => (
+					<div>
+						<List.Item key={character.url}>
+							<CharacterCard isFetching={isFetching} character={character} />
+						</List.Item>
+					</div>
 				)}
 			/>
 		</Space>

@@ -2,7 +2,9 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
+      "proj/*": ["/*"],
       "src/*": ["src/*"],
+      "tests/*": ["tests/*"],
     },
     "target": "ESNext",
     "useDefineForClassFields": true,
@@ -19,7 +21,8 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "types": ["vitest/globals"]
   },
   "include": ["src"],
   "exclude": ["node_modules"],

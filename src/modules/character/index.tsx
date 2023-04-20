@@ -7,8 +7,8 @@ import Loader from 'src/components/loader';
 import { getIDFromURL } from 'src/helpers';
 import { getCharacters, getIsCharactersFetching } from 'src/modules/characters/selectors';
 import { getCharacter, getIsCharacterFetching } from 'src/modules/character/selectors';
-import 'src/modules/character/styles/index.css';
 import { getCharacterRequest } from 'src/modules/character/thunks';
+import 'src/modules/character/styles/index.css';
 
 export default function index() {
 	const [_loc, navigate] = useLocation();
@@ -32,25 +32,25 @@ export default function index() {
 	const companions = useMemo(() => [...characters].sort(() => 0.5 - Math.random()).slice(0, 4), [characters]);
 
 	return (
-		<Spin spinning={isFetching || isCharactersFetching} indicator={<Loader />} wrapperClassName="character_spinner">
+		<Spin spinning={isFetching || isCharactersFetching} indicator={<Loader />} wrapperClassName="character__spinner">
 			<Breadcrumb
-				style={{ margin: '16px 0', fontFamily: 'Star Jedi', height: 36 }}
+				className="character__breadcrumbs text--star-jedi"
 				items={[
 					{
 						title: 'Characters',
 						onClick: () => navigate('/'),
-						className: 'breadcrumb',
+						className: 'breadcrumb text--star-jedi',
 					},
 					{
 						title: !character.name ? <Skeleton /> : character.name.toLowerCase(),
 					},
 				]}
 			/>
-			<Row gutter={[16, 16]} wrap className="character_row">
-				<Col md={12} flex={1} xs={24} className="character_image_container ">
+			<Row gutter={[16, 16]} wrap className="character__row">
+				<Col md={12} flex={1} xs={24} className="character__image-container ">
 					<>
 						<Image preview={{ visible: false }} src="/jedi_1.jpeg" onClick={() => setVisible(true)} />
-						<div style={{ display: 'none' }}>
+						<div className="display--none">
 							<Image.PreviewGroup preview={{ visible, onVisibleChange: (vis) => setVisible(vis) }}>
 								<Image src="/jedi_1.jpeg" />
 								<Image src="/jedi_2.jpeg" />
@@ -59,22 +59,22 @@ export default function index() {
 					</>
 				</Col>
 				<Col md={12} flex={1} xs={24}>
-					<Space direction="vertical" style={{ width: '100%' }}>
-						<Descriptions title={<span className="text-star-jedi">About character</span>} layout="vertical" bordered column={1}>
+					<Space direction="vertical" className="width-100-percents">
+						<Descriptions title={<span className="text--star-jedi">About character</span>} layout="vertical" bordered column={1}>
 							<Descriptions.Item>
-								<b className="text-star-jedi character_description">Birth year:</b> {character.birth_year}
+								<b className="text--star-jedi character__description">Birth year:</b> {character.birth_year}
 							</Descriptions.Item>
 							<Descriptions.Item>
-								<b className="text-star-jedi character_description">Height:</b> {character.height} cm
+								<b className="text--star-jedi character__description">Height:</b> {character.height} cm
 							</Descriptions.Item>
 							<Descriptions.Item>
-								<b className="text-star-jedi character_description">Mass:</b> {character.mass}
+								<b className="text--star-jedi character__description">Mass:</b> {character.mass}
 							</Descriptions.Item>
 							<Descriptions.Item>
-								<b className="text-star-jedi character_description">Eye color:</b> {character.eye_color}
+								<b className="text--star-jedi character__description">Eye color:</b> {character.eye_color}
 							</Descriptions.Item>
 						</Descriptions>
-						<Card title={<div>Companions</div>}>
+						<Card title={<div className="text--star-jedi">Companions</div>}>
 							{companions.map(({ name, url, gender }) => (
 								<Card.Grid className="card-grid-item" key={url} onClick={() => navigate(`/character/${getIDFromURL(url)}`)}>
 									<Card.Meta
@@ -85,7 +85,7 @@ export default function index() {
 										}
 										title={name.toLowerCase()}
 										description={`Gender: ${gender.toLowerCase()}`}
-										style={{ fontFamily: 'Star Jedi, sans-serif' }}
+										className="text--star-jedi"
 									/>
 								</Card.Grid>
 							))}

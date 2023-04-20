@@ -28,6 +28,26 @@
 	align-items: center;
 }
 
-.text-star-jedi {
+.margin-top-16 {
+	margin-top: 16px;
+}
+
+.text--no-wrap {
+	white-space: nowrap;
+}
+
+.text--star-jedi {
 	font-family: 'Star Jedi', sans-serif;
+}
+
+.text--center {
+	text-align: center;
+}
+
+.display--none {
+	display: none;
+}
+
+.width-100-percents {
+	width: 100%;
 }

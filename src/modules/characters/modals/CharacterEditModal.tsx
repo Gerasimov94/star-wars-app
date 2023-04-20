@@ -40,8 +40,6 @@ export default function CharacterEditModal({ setIsOpen, isOpen, character }: IPr
 			.catch(() => {});
 	}, []);
 
-	console.log(character);
-
 	return (
 		<Modal
 			forceRender
@@ -52,7 +50,7 @@ export default function CharacterEditModal({ setIsOpen, isOpen, character }: IPr
 				setIsOpen(false);
 			}}
 			footer={[
-				<Button form="add-version-form" key="save" type="primary" htmlType="submit" loading={false} onClick={onSave}>
+				<Button key="save" type="primary" htmlType="submit" loading={false} onClick={onSave}>
 					Edit
 				</Button>,
 				<Button
@@ -65,7 +63,7 @@ export default function CharacterEditModal({ setIsOpen, isOpen, character }: IPr
 				</Button>,
 			]}
 		>
-			<Form id="character-edit-form" name="form" form={form} initialValues={character} layout="vertical" preserve={false}>
+			<Form name="form" form={form} initialValues={character} layout="vertical" preserve={false}>
 				{['name', 'height', 'mass'].map((field) => {
 					const label = capitalize(field);
 

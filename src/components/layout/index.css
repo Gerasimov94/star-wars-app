@@ -1,0 +1,16 @@
+.layout {
+	height: 100vh;
+}
+
+.layout__header_content {
+	width: 100%;
+	justify-content: space-between;
+}
+
+.layout__content {
+	padding: 16px;
+	width: 100vw;
+	min-height: calc(100vh - 134px);
+	height: calc(100vh - 134px);
+	overflow: auto;
+}

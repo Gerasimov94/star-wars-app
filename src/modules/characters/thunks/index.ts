@@ -18,11 +18,11 @@ export const getCharactersRequest = (
 
 			const response = await apiRequest(makeURLString('/people', data), { signal: controller?.signal });
 
-			const result: { results: ICharacter[]; total: number } = await response.json();
+			const result: { results: ICharacter[]; count: number } = await response.json();
 
 			batch(() => {
 				dispatch(setIsFetching(false));
-				dispatch(setCharactersData({ characters: result.results, total: result.total }));
+				dispatch(setCharactersData({ characters: result.results, total: result.count }));
 			});
 		} catch (err) {
 			if (!controller?.signal.aborted) {
