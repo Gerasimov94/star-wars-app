@@ -9,6 +9,8 @@ Welcome to the Star Wars project! This project is all about exploring the vast a
 
 ## Installation
 
+Live demo avaliable here: https://jedisith.netlify.app
+
 To get started with this project, simply clone the repository and run npm install to install all the necessary dependencies.
 
 ```js
