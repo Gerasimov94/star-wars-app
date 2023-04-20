@@ -29,8 +29,8 @@ const tagRender = (props: CustomTagProps) => {
 };
 
 export default function CharactersRoot() {
-	const abortControllerRef = useRef(new AbortController());
 	const [searchText, setSearchText] = useState('');
+	const [page, setPage] = useState(1);
 	const dispatch = useAppDispatch();
 	const characters = useAppSelector(getFilteredCharacters);
 	const isFetching = useAppSelector(getIsCharactersFetching);
@@ -41,21 +41,14 @@ export default function CharactersRoot() {
 		token: { colorBgContainer },
 	} = theme.useToken();
 
-	const onPaginationChange = useCallback(
-		(page: number) => {
-			dispatch(getCharactersRequest(abortControllerRef.current, { page, search: '' }));
-		},
-		[abortControllerRef.current],
-	);
-
 	useEffect(() => {
 		const abortController = new AbortController();
-		dispatch(getCharactersRequest(abortController, { search: searchText }));
+		dispatch(getCharactersRequest(abortController, { page, search: searchText }));
 
 		return () => {
 			abortController.abort();
 		};
-	}, [searchText]);
+	}, [searchText, page]);
 
 	const getCharactersByName: React.ChangeEventHandler<HTMLInputElement> = useMemo(
 		() =>
@@ -115,7 +108,7 @@ export default function CharactersRoot() {
 				pagination={{
 					defaultCurrent: 1,
 					total,
-					onChange: onPaginationChange,
+					onChange: setPage,
 					position: 'bottom',
 					align: 'center',
 					style: { backgroundColor: colorBgContainer, border: `1px solid #9E9E9E` },

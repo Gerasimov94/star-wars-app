@@ -15,6 +15,10 @@
 	overflow: auto;
 }
 
+.ant-list > .ant-spin-nested-loading > .ant-spin-blur {
+	overflow: hidden !important;
+}
+
 .characters__pagination {
 	position: fixed;
 	bottom: 64px;

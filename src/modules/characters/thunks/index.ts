@@ -1,4 +1,3 @@
-import { batch } from 'react-redux';
 import { setCharactersData, setIsFetching } from 'src/modules/characters/slice';
 import { AppThunk } from 'src/store';
 import apiRequest, { makeURLString } from 'src/utils/request';
@@ -18,17 +17,16 @@ export const getCharactersRequest = (
 
 			const response = await apiRequest(makeURLString('/people', data), { signal: controller?.signal });
 
-			const result: { results: ICharacter[]; count: number } = await response.json();
+			if (response.ok) {
+				const result: { results: ICharacter[]; count: number } = await response.json();
 
-			batch(() => {
-				dispatch(setIsFetching(false));
 				dispatch(setCharactersData({ characters: result.results, total: result.count }));
-			});
+			}
 		} catch (err) {
 			if (!controller?.signal.aborted) {
 				showErrorNotification();
 			}
-
+		} finally {
 			dispatch(setIsFetching(false));
 		}
 	};
