@@ -12,7 +12,17 @@
 
 .ant-list > .ant-spin-nested-loading > .ant-spin-container {
 	height: calc(100vh - 268px);
-    overflow: auto;
+	overflow: auto;
+}
+
+.characters__pagination {
+	position: fixed;
+	bottom: 64px;
+	border-radius: 10px;
+	padding: 4px;
+	left: 50%;
+	transform: translate(-50%, -25%);
+	white-space: nowrap;
 }
 
 .ant-list-empty-text {

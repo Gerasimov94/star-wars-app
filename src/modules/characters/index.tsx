@@ -1,5 +1,5 @@
 import { UserOutlined, InfoCircleOutlined } from '@ant-design/icons';
-import { Select, Input, List, Space, Spin, Tooltip, Tag } from 'antd';
+import { Select, Input, List, Space, Spin, Tooltip, Tag, theme } from 'antd';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { CustomTagProps } from 'rc-select/lib/BaseSelect';
 import CharacterCard from 'src/components/card/CharacterCard';
@@ -11,6 +11,7 @@ import { getCharactersRequest } from 'src/modules/characters/thunks';
 import { Gender } from 'src/common/types';
 import { updateFilters } from 'src/modules/characters/slice';
 import 'src/modules/characters/styles/index.css';
+import { ThemeModes, useThemeContext } from 'src/common/context/ThemeContext';
 
 const filterOptions = Object.values(Gender).map((value) => ({ value }));
 
@@ -35,6 +36,12 @@ export default function CharactersRoot() {
 	const isFetching = useAppSelector(getIsCharactersFetching);
 	const genderFilter = useAppSelector(getGendersFilter);
 	const total = useAppSelector(getTotalNumberOfCharacters);
+
+	const { mode } = useThemeContext();
+
+	const {
+		token: { colorBgContainer },
+	} = theme.useToken();
 
 	const onPaginationChange = useCallback(
 		(page: number) => {
@@ -66,7 +73,7 @@ export default function CharactersRoot() {
 
 	return (
 		<>
-			<Space className="characters_filters" wrap>
+			<Space className="characters__filters" wrap>
 				<Space wrap>
 					<label className="text--star-jedi">Pick characters gender: </label>
 					<Select
@@ -113,6 +120,8 @@ export default function CharactersRoot() {
 					onChange: onPaginationChange,
 					position: 'bottom',
 					align: 'center',
+					style: { backgroundColor: colorBgContainer, border: `1px solid ${mode === ThemeModes.LIGHT ? 'black' : 'white'}` },
+					className: 'characters__pagination',
 					hideOnSinglePage: true,
 					defaultPageSize: 10,
 					showSizeChanger: false,
@@ -124,7 +133,7 @@ export default function CharactersRoot() {
 					padding: '16px 0px',
 				}}
 				dataSource={characters}
-				renderItem={(character, idx) => (
+				renderItem={(character) => (
 					<div>
 						<List.Item key={character.url}>
 							<CharacterCard isFetching={isFetching} character={character} />
