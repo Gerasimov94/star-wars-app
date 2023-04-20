@@ -65,7 +65,7 @@ export default function CharactersRoot() {
 	};
 
 	return (
-		<Space direction="vertical" className="width-100-percents">
+		<>
 			<Space className="characters_filters" wrap>
 				<Space wrap>
 					<label className="text--star-jedi">Pick characters gender: </label>
@@ -132,6 +132,6 @@ export default function CharactersRoot() {
 					</div>
 				)}
 			/>
-		</Space>
+		</>
 	);
 }

@@ -46,7 +46,7 @@ export default function index() {
 					},
 				]}
 			/>
-			<Row gutter={[16, 16]} wrap className="character__row">
+			<Row gutter={[0, 16]} wrap className="character__row">
 				<Col md={12} flex={1} xs={24} className="character__image-container ">
 					<>
 						<Image preview={{ visible: false }} src="/jedi_1.jpeg" onClick={() => setVisible(true)} />
@@ -90,6 +90,7 @@ export default function index() {
 								</Card.Grid>
 							))}
 						</Card>
+						<br />
 					</Space>
 				</Col>
 			</Row>

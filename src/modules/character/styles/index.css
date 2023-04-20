@@ -1,5 +1,5 @@
 .character__spinner {
-	height: calc(100vh - 168px);
+	overflow: auto;
 }
 
 .character__description {

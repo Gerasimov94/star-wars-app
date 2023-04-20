@@ -74,6 +74,6 @@ button:focus-visible {
 
 .card-grid-item {
 	width: 50% !important;
-	height: 128px;
+	height: 112px;
 	cursor: pointer;
 }

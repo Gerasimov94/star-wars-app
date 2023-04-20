@@ -10,6 +10,11 @@
 	left: 50%;
 }
 
+.ant-list > .ant-spin-nested-loading > .ant-spin-container {
+	height: calc(100vh - 268px);
+    overflow: auto;
+}
+
 .ant-list-empty-text {
 	height: calc(100vh - 256px);
 	display: flex;
