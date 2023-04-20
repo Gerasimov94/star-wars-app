@@ -11,7 +11,7 @@ import { getCharactersRequest } from 'src/modules/characters/thunks';
 import { Gender } from 'src/common/types';
 import { updateFilters } from 'src/modules/characters/slice';
 import 'src/modules/characters/styles/index.css';
-import { ThemeModes, useThemeContext } from 'src/common/context/ThemeContext';
+import { useThemeContext } from 'src/common/context/ThemeContext';
 
 const filterOptions = Object.values(Gender).map((value) => ({ value }));
 
@@ -36,8 +36,6 @@ export default function CharactersRoot() {
 	const isFetching = useAppSelector(getIsCharactersFetching);
 	const genderFilter = useAppSelector(getGendersFilter);
 	const total = useAppSelector(getTotalNumberOfCharacters);
-
-	const { mode } = useThemeContext();
 
 	const {
 		token: { colorBgContainer },
@@ -120,7 +118,7 @@ export default function CharactersRoot() {
 					onChange: onPaginationChange,
 					position: 'bottom',
 					align: 'center',
-					style: { backgroundColor: colorBgContainer, border: `1px solid ${mode === ThemeModes.LIGHT ? 'black' : 'white'}` },
+					style: { backgroundColor: colorBgContainer, border: `1px solid #9E9E9E` },
 					className: 'characters__pagination',
 					hideOnSinglePage: true,
 					defaultPageSize: 10,
