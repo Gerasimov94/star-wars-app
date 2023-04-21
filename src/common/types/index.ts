@@ -3,6 +3,7 @@ export enum Gender {
 	Female = 'female',
 	Male = 'male',
 	NA = 'n/a',
+	Hermaphrodite = 'hermaphrodite',
 }
 
 export type ApiString = string; // refers to swapi entities
