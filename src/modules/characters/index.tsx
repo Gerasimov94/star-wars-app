@@ -1,5 +1,5 @@
 import { UserOutlined, InfoCircleOutlined } from '@ant-design/icons';
-import { Select, Input, List, Space, Spin, Tooltip, Tag, theme } from 'antd';
+import { Select, Input, List, Space, Spin, Tooltip, Tag, theme, Typography } from 'antd';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { CustomTagProps } from 'rc-select/lib/BaseSelect';
 import CharacterCard from 'src/components/card/CharacterCard';
@@ -66,7 +66,7 @@ export default function CharactersRoot() {
 		<>
 			<Space className="characters__filters" wrap>
 				<Space wrap>
-					<label className="text--star-jedi">Pick characters gender: </label>
+					<Typography.Text className="text--star-jedi">Pick characters gender: </Typography.Text>
 					<Select
 						mode="multiple"
 						showArrow
