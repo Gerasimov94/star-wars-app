@@ -8,7 +8,7 @@ export default function Router() {
 		<Switch>
 			<Route component={CharactersRoot} path="/" />
 			<Route component={CharacterRoot} path="/character/:id" />
-			<Route component={ErrorPage} path="/:rest*" />
+			<Route component={ErrorPage} />
 		</Switch>
 	);
 }
