@@ -11,7 +11,4 @@ export default defineConfig({
 			src: path.resolve(__dirname, 'src'),
 		},
 	},
-	define: {
-		API_URL: `"${process.env.VITE_API_URL}"`,
-	},
 });

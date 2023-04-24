@@ -75,6 +75,7 @@ export default function CharactersRoot() {
 						onChange={onSelectChange}
 						className="width-100-percents"
 						options={filterOptions}
+						style={{ minWidth: 160 }}
 					/>
 				</Space>
 
