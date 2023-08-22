@@ -33,7 +33,7 @@ If you would like to contribute to this project, please fork the repository and 
 
 ## Credits
 
-This project was created by Your Name and is licensed under the MIT License (https://opensource.org/licenses/MIT).
+This project was created by Gerasimov Alexey and is licensed under the MIT License (https://opensource.org/licenses/MIT).
 
 ## Contact
 
